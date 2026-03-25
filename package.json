@@ -14,8 +14,8 @@
   },
   "packageManager": "pnpm@10.20.0",
   "scripts": {
-    "check": "pnpm -r pack --pack-destination .tmp-packs",
-    "release:pack": "pnpm -r pack --pack-destination .tmp-packs",
-    "release:publish": "pnpm -r publish --no-git-checks"
+    "check:pack": "pnpm -r pack --pack-destination .tmp-packs",
+    "publish:packages": "pnpm -r --filter './packages/*' publish --no-git-checks",
+    "release": "pnpm check:pack && pnpm publish:packages"
   }
 }
