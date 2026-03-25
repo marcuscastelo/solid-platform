@@ -1,10 +1,10 @@
 {
-  "name": "@marucs/tsconfig",
-  "version": "0.2.0",
+  "name": "@marcuscastelo/tsconfig",
+  "version": "0.1.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marucs/solid-platform.git"
+    "url": "git+https://github.com/marcuscastelo/solid-platform.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

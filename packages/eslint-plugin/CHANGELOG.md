@@ -1,4 +1,4 @@
-# @marucs/eslint-plugin
+# @marcuscastelo/eslint-plugin
 
 ## 0.2.0
 

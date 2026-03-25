@@ -1,4 +1,4 @@
-# @marucs/eslint-config
+# @marcuscastelo/eslint-config
 
 ## 0.2.0
 
@@ -11,4 +11,4 @@
 - Initial changeset
 - Updated dependencies
 - Updated dependencies
-  - @marucs/eslint-plugin@0.2.0
+  - @marcuscastelo/eslint-plugin@0.2.0

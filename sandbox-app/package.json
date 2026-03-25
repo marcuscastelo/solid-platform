@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@marucs/eslint-config": "workspace:*",
-    "@marucs/eslint-plugin": "workspace:*",
-    "@marucs/tsconfig": "workspace:*",
+    "@marcuscastelo/eslint-config": "workspace:*",
+    "@marcuscastelo/eslint-plugin": "workspace:*",
+    "@marcuscastelo/tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "eslint": "^9.0.0"
   }

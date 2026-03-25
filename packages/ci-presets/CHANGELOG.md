@@ -1,4 +1,4 @@
-# @marucs/ci-presets
+# @marcuscastelo/ci-presets
 
 ## 0.0.2
 

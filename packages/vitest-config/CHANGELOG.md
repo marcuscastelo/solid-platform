@@ -1,4 +1,4 @@
-# @marucs/vitest-config
+# @marcuscastelo/vitest-config
 
 ## 0.0.2
 

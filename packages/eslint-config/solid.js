@@ -1,4 +1,4 @@
-import platformPlugin from '@marucs/eslint-plugin'
+import platformPlugin from '@marcuscastelo/eslint-plugin'
 
 export default [
   {

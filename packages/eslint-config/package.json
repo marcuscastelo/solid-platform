@@ -1,11 +1,11 @@
 {
-  "name": "@marucs/eslint-config",
+  "name": "@marcuscastelo/eslint-config",
   "version": "0.2.0",
   "private": false,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marucs/solid-platform.git"
+    "url": "git+https://github.com/marcuscastelo/solid-platform.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -16,6 +16,6 @@
     "./node": "./node.js"
   },
   "dependencies": {
-    "@marucs/eslint-plugin": "workspace:*"
+    "@marcuscastelo/eslint-plugin": "workspace:*"
   }
 }

@@ -22,7 +22,7 @@ importers:
 
   packages/eslint-config:
     dependencies:
-      '@marucs/eslint-plugin':
+      '@marcuscastelo/eslint-plugin':
         specifier: workspace:*
         version: link:../eslint-plugin
 

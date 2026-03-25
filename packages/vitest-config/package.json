@@ -1,5 +1,5 @@
 {
-  "name": "@marucs/vitest-config",
+  "name": "@marcuscastelo/vitest-config",
   "version": "0.0.2",
   "private": true,
   "type": "module",

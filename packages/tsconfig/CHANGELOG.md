@@ -1,4 +1,4 @@
-# @marucs/tsconfig
+# @marcuscastelo/tsconfig
 
 ## 0.2.0
 

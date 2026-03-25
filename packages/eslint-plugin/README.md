@@ -1,3 +1,3 @@
-# @marucs/eslint-plugin
+# @marcuscastelo/eslint-plugin
 
 Internal package for frontend platform.
