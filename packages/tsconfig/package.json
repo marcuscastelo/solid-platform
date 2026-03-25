@@ -10,8 +10,8 @@
     "registry": "https://npm.pkg.github.com"
   },
   "exports": {
-    "./base": "./base.json",
-    "./solid": "./solid.json",
-    "./node": "./node.json"
+    "./base": "./src/presets/base.json",
+    "./solid": "./src/presets/solid.json",
+    "./node": "./src/presets/node.json"
   }
 }

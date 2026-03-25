@@ -10,12 +10,16 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "main": "./src/index.js",
   "exports": {
-    "./base": "./base.js",
-    "./solid": "./solid.js",
-    "./node": "./node.js"
+    ".": "./src/index.js",
+    "./base": "./src/presets/base.js",
+    "./node": "./src/presets/node.js",
+    "./solid": "./src/presets/solid.js"
   },
   "dependencies": {
-    "@marcuscastelo/eslint-plugin": "workspace:*"
+    "@marcuscastelo/eslint-plugin": "workspace:*",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint-plugin-solid": "^0.14.5"
   }
 }

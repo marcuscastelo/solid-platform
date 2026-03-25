@@ -10,7 +10,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "main": "./src/index.js",
   "exports": {
-    ".": "./index.js"
+    ".": "./src/index.js"
   }
 }
