@@ -23,16 +23,32 @@ export default [
 			"solid/components-return-once": "error",
 		},
 	},
-
-	// JSX rules (genéricas)
 	{
-		files: ["**/*.tsx"],
+		files: ['src/modules/**/*.{ts,tsx}'],
 		rules: {
-			"platform/no-jsx-short-circuit": "error",
-			"platform/no-jsx-ternary": "error",
-			"platform/no-iife-in-jsx": "warn",
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['~/capabilities/**'],
+							message: 'Modules must not depend on capabilities.',
+						},
+					],
+				},
+			],
 		},
 	},
+	// JSX rules (genéricas)
+	// TODO: aplicar quando tiver os rules movidos
+	// {
+	// 	files: ["**/*.tsx"],
+	// 	rules: {
+	// 		"platform/no-jsx-short-circuit": "error",
+	// 		"platform/no-jsx-ternary": "error",
+	// 		"platform/no-iife-in-jsx": "warn",
+	// 	},
+	// },
 
 	// Navegação imperativa proibida (genérico)
 	{
