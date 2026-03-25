@@ -1,5 +1,15 @@
 # @marcuscastelo/eslint-config
 
+## 0.2.1
+
+### Patch Changes
+
+- e2cda39: Testing workflow
+- 1418045: Initial changeset
+- Updated dependencies [e2cda39]
+- Updated dependencies [1418045]
+  - @marcuscastelo/eslint-plugin@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
