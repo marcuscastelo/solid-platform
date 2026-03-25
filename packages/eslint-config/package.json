@@ -1,0 +1,14 @@
+{
+  "name": "@acme/eslint-config",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./solid": "./solid.js",
+    "./node": "./node.js"
+  },
+  "dependencies": {
+    "@acme/eslint-plugin": "workspace:*"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "sandbox-app",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@acme/eslint-config": "workspace:*",
+    "@acme/eslint-plugin": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
+    "typescript": "^5.9.3",
+    "eslint": "^9.0.0"
+  }
+}
