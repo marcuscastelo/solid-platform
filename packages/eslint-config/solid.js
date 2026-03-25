@@ -2,6 +2,43 @@ import platformPlugin from "@marcuscastelo/eslint-plugin";
 import solid from "eslint-plugin-solid/configs/typescript";
 import * as tsParser from "@typescript-eslint/parser";
 
+const platformUiFiles = [
+	"src/modules/*/ui/**/*.{ts,tsx}",
+	"src/modules/*/features/*/ui/**/*.{ts,tsx}",
+	"src/capabilities/*/ui/**/*.{ts,tsx}",
+	"src/shared/ui/**/*.{ts,tsx}",
+];
+
+const platformUiComponentFiles = [
+	"src/modules/*/ui/components/**/*.{ts,tsx}",
+	"src/modules/*/features/*/ui/components/**/*.{ts,tsx}",
+	"src/capabilities/*/ui/components/**/*.{ts,tsx}",
+	"src/shared/ui/**/*.{ts,tsx}",
+];
+
+const platformUiPageFiles = [
+	"src/modules/*/ui/screens/**/*.{ts,tsx}",
+	"src/modules/*/ui/routes/**/*.{ts,tsx}",
+	"src/modules/*/ui/pages/**/*.{ts,tsx}",
+	"src/modules/*/ui/*View.tsx",
+	"src/modules/*/ui/*Dialog.tsx",
+	"src/modules/*/ui/**/index.tsx",
+
+	"src/modules/*/features/*/ui/screens/**/*.{ts,tsx}",
+	"src/modules/*/features/*/ui/routes/**/*.{ts,tsx}",
+	"src/modules/*/features/*/ui/pages/**/*.{ts,tsx}",
+	"src/modules/*/features/*/ui/*View.tsx",
+	"src/modules/*/features/*/ui/*Dialog.tsx",
+	"src/modules/*/features/*/ui/**/index.tsx",
+
+	"src/capabilities/*/ui/screens/**/*.{ts,tsx}",
+	"src/capabilities/*/ui/routes/**/*.{ts,tsx}",
+	"src/capabilities/*/ui/pages/**/*.{ts,tsx}",
+	"src/capabilities/*/ui/*View.tsx",
+	"src/capabilities/*/ui/*Dialog.tsx",
+	"src/capabilities/*/ui/**/index.tsx",
+];
+
 export default [
 	{
 		plugins: {
@@ -23,16 +60,17 @@ export default [
 			"solid/components-return-once": "error",
 		},
 	},
+
 	{
-		files: ['src/modules/**/*.{ts,tsx}'],
+		files: ["src/modules/**/*.{ts,tsx}"],
 		rules: {
-			'no-restricted-imports': [
-				'error',
+			"no-restricted-imports": [
+				"error",
 				{
 					patterns: [
 						{
-							group: ['~/capabilities/**'],
-							message: 'Modules must not depend on capabilities.',
+							group: ["~/capabilities/**"],
+							message: "Modules must not depend on capabilities.",
 						},
 					],
 				},
@@ -41,14 +79,14 @@ export default [
 	},
 
 	{
-		files: ["**/*.tsx"],
+		files: platformUiFiles,
 		rules: {
 			"max-lines-per-function": ["error", 220],
 		},
 	},
 
 	{
-		files: ["**/*.component.tsx"],
+		files: platformUiComponentFiles,
 		rules: {
 			complexity: ["error", 15],
 			"max-depth": ["error", 4],
@@ -57,7 +95,7 @@ export default [
 	},
 
 	{
-		files: ["**/*.page.tsx"],
+		files: platformUiPageFiles,
 		rules: {
 			complexity: ["error", 20],
 			"max-depth": ["error", 5],
@@ -76,7 +114,6 @@ export default [
 	// 	},
 	// },
 
-	// Navegação imperativa proibida (genérico)
 	{
 		files: ["**/*.{ts,tsx}"],
 		rules: {
@@ -96,7 +133,6 @@ export default [
 		},
 	},
 
-	// ViewModel = shape only
 	{
 		files: ["**/*.vm.ts"],
 		rules: {
