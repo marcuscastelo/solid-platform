@@ -1,5 +1,11 @@
 # @marcuscastelo/eslint-config
 
+## 0.2.3
+
+### Patch Changes
+
+- e8fa6ab: Release updates for eslint-config.
+
 ## 0.2.2
 
 ### Patch Changes
