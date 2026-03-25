@@ -10,7 +10,7 @@ import crypto from 'node:crypto'
 const ROOT = process.cwd()
 const PACKAGES_DIR = path.join(ROOT, 'packages')
 const CHANGESET_DIR = path.join(ROOT, '.changeset')
-const DEFAULT_SCOPE_MODE = 'head' // 'head' | 'main' | custom via --since
+const DEFAULT_BASE_REF = 'origin/main'
 
 function run(command) {
   return execSync(command, {
@@ -33,6 +33,7 @@ function parseArgs(argv) {
     since: null,
     message: null,
     yes: false,
+    noFetch: false,
   }
 
   for (let i = 0; i < argv.length; i++) {
@@ -52,6 +53,11 @@ function parseArgs(argv) {
 
     if (arg === '--yes') {
       args.yes = true
+      continue
+    }
+
+    if (arg === '--no-fetch') {
+      args.noFetch = true
       continue
     }
   }
@@ -86,6 +92,7 @@ function getPackages() {
     if (!fs.existsSync(packageJsonPath)) continue
 
     const pkg = readJson(packageJsonPath)
+
     packages.push({
       dirName,
       dirPath: path.join(PACKAGES_DIR, dirName),
@@ -144,16 +151,13 @@ function resolveDiffRange(sinceArg) {
     return `${sinceArg}...HEAD`
   }
 
-  if (DEFAULT_SCOPE_MODE === 'main') {
-    return 'origin/main...HEAD'
-  }
-
-  return 'HEAD~1...HEAD'
+  return `${DEFAULT_BASE_REF}...HEAD`
 }
 
 function getChangedFiles(diffRange) {
   const output = safeRun(`git diff --name-only ${diffRange}`)
   if (!output) return []
+
   return output
     .split('\n')
     .map((line) => line.trim())
@@ -171,6 +175,7 @@ function mapChangedFilesToPackages(changedFiles, byDir) {
     if (match) {
       const dirName = match[1]
       const pkg = byDir.get(dirName)
+
       if (pkg) {
         directlyChangedPackageNames.add(pkg.name)
         continue
@@ -213,14 +218,21 @@ function unscopedName(packageName) {
   return packageName.split('/')[1]
 }
 
-function printSummary(packagesByName, directlyChangedSet, affectedSet, globalChanges) {
-  const affected = [...affectedSet].map((name) => packagesByName.get(name)).filter(Boolean)
+function printSummary(packagesByName, directlyChangedSet, affectedSet, globalChanges, diffRange) {
+  const affected = [...affectedSet]
+    .map((name) => packagesByName.get(name))
+    .filter(Boolean)
 
-  console.log('\nAffected packages:\n')
+  console.log(`\nDiff range: ${diffRange}\n`)
+  console.log('Affected packages:\n')
 
-  for (const pkg of affected) {
-    const impact = relativeImpactType(pkg.name, directlyChangedSet)
-    console.log(`- ${pkg.name} [${impact}]`)
+  if (affected.length === 0) {
+    console.log('- none')
+  } else {
+    for (const pkg of affected) {
+      const impact = relativeImpactType(pkg.name, directlyChangedSet)
+      console.log(`- ${pkg.name} [${impact}]`)
+    }
   }
 
   if (globalChanges.length > 0) {
@@ -239,7 +251,6 @@ async function askChoice(rl, prompt, allowed, defaultValue) {
   const answer = (await rl.question(`${prompt} (${allowedDisplay})${suffix}: `)).trim()
 
   if (!answer && defaultValue) return defaultValue
-
   if (allowed.includes(answer)) return answer
 
   console.log(`Invalid choice: ${answer}`)
@@ -260,7 +271,7 @@ async function askBumps(affectedPackages, directlyChangedSet, yesMode) {
       const direct = directlyChangedSet.has(pkg.name)
 
       if (yesMode) {
-        result.set(pkg.name, direct ? 'patch' : 'patch')
+        result.set(pkg.name, 'patch')
         continue
       }
 
@@ -271,7 +282,10 @@ async function askBumps(affectedPackages, directlyChangedSet, yesMode) {
           ['patch', 'minor', 'major', 'none'],
           'patch',
         )
-        if (bump !== 'none') result.set(pkg.name, bump)
+
+        if (bump !== 'none') {
+          result.set(pkg.name, bump)
+        }
       } else {
         const bump = await askChoice(
           rl,
@@ -279,7 +293,10 @@ async function askBumps(affectedPackages, directlyChangedSet, yesMode) {
           ['none', 'patch', 'minor', 'major'],
           'patch',
         )
-        if (bump !== 'none') result.set(pkg.name, bump)
+
+        if (bump !== 'none') {
+          result.set(pkg.name, bump)
+        }
       }
     }
 
@@ -291,13 +308,12 @@ async function askBumps(affectedPackages, directlyChangedSet, yesMode) {
 
 async function maybeIncludeGlobalChanges(packages, selectedBumps, globalChanges, yesMode) {
   if (globalChanges.length === 0) return selectedBumps
-
-  console.log('There are changed files outside packages/*.')
   if (yesMode) return selectedBumps
 
   const rl = createInterface({ input, output })
 
   try {
+    console.log('There are changed files outside packages/*.')
     const answer = await askChoice(
       rl,
       'Do you want to add extra packages manually because of global changes?',
@@ -333,6 +349,7 @@ async function maybeIncludeGlobalChanges(packages, selectedBumps, globalChanges,
         ['patch', 'minor', 'major', 'none'],
         'patch',
       )
+
       if (bump !== 'none') {
         selectedBumps.set(pkg.name, bump)
       }
@@ -346,6 +363,7 @@ async function maybeIncludeGlobalChanges(packages, selectedBumps, globalChanges,
 
 function createChangesetFrontmatter(selectedBumps) {
   const entries = [...selectedBumps.entries()].sort(([a], [b]) => a.localeCompare(b))
+
   return [
     '---',
     ...entries.map(([pkgName, bump]) => `"${pkgName}": ${bump}`),
@@ -359,23 +377,26 @@ function slug() {
 
 function writeChangesetFile(frontmatter, message) {
   ensureDir(CHANGESET_DIR)
+
   const fileName = `${slug()}.md`
   const filePath = path.join(CHANGESET_DIR, fileName)
-
   const content = `${frontmatter}\n\n${message.trim()}\n`
-  fs.writeFileSync(filePath, content, 'utf8')
 
+  fs.writeFileSync(filePath, content, 'utf8')
   return filePath
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2))
-  const diffRange = resolveDiffRange(args.since)
 
+  if (!args.noFetch) {
+    safeRun(`git fetch origin main --quiet`)
+  }
+
+  const diffRange = resolveDiffRange(args.since)
   const packages = getPackages()
   const { byDir, byName } = buildPackageMaps(packages)
   const reverseGraph = buildReverseInternalDependencyGraph(packages, byName)
-
   const changedFiles = getChangedFiles(diffRange)
 
   if (changedFiles.length === 0) {
@@ -395,7 +416,7 @@ async function main() {
     process.exit(0)
   }
 
-  printSummary(byName, directlyChangedPackageNames, affectedPackageNames, globalChanges)
+  printSummary(byName, directlyChangedPackageNames, affectedPackageNames, globalChanges, diffRange)
 
   const affectedPackages = [...affectedPackageNames]
     .map((name) => byName.get(name))
@@ -403,6 +424,7 @@ async function main() {
     .sort((a, b) => {
       const aDirect = directlyChangedPackageNames.has(a.name) ? 0 : 1
       const bDirect = directlyChangedPackageNames.has(b.name) ? 0 : 1
+
       if (aDirect !== bDirect) return aDirect - bDirect
       return a.name.localeCompare(b.name)
     })
