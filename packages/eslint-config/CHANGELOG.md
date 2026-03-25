@@ -1,5 +1,11 @@
 # @marcuscastelo/eslint-config
 
+## 0.3.1
+
+### Patch Changes
+
+- ed02291: Release updates for eslint-config.
+
 ## 0.3.0
 
 ### Minor Changes
