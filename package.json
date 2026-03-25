@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.20.0",
+  "private": true,
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "eslint": "^10.1.0",
     "typescript": "^6.0.2"
+  },
+  "packageManager": "pnpm@10.20.0",
+  "scripts": {
+    "check": "pnpm -r pack --pack-destination .tmp-packs",
+    "release:pack": "pnpm -r pack --pack-destination .tmp-packs",
+    "release:publish": "pnpm -r publish --no-git-checks"
   }
 }

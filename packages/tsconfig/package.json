@@ -1,7 +1,14 @@
 {
-  "name": "@acme/tsconfig",
-  "version": "0.0.1",
-  "private": true,
+  "name": "@marucs/tsconfig",
+  "version": "0.2.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marucs/solid-platform.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "exports": {
     "./base": "./base.json",
     "./solid": "./solid.json",

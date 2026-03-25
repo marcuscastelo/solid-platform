@@ -1,6 +1,6 @@
 {
-  "name": "@acme/ci-presets",
-  "version": "0.0.1",
+  "name": "@marucs/ci-presets",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "exports": {

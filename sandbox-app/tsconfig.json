@@ -1,4 +1,4 @@
 {
-  "extends": "@acme/tsconfig/solid",
+  "extends": "@marucs/tsconfig/solid",
   "include": ["src"]
 }

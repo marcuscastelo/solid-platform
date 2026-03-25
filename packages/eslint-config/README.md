@@ -1,3 +1,3 @@
-# @acme/eslint-config
+# @marucs/eslint-config
 
 Internal package for frontend platform.

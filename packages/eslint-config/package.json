@@ -1,14 +1,21 @@
 {
-  "name": "@acme/eslint-config",
-  "version": "0.0.1",
-  "private": true,
+  "name": "@marucs/eslint-config",
+  "version": "0.2.0",
+  "private": false,
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marucs/solid-platform.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "exports": {
     "./base": "./base.js",
     "./solid": "./solid.js",
     "./node": "./node.js"
   },
   "dependencies": {
-    "@acme/eslint-plugin": "workspace:*"
+    "@marucs/eslint-plugin": "workspace:*"
   }
 }

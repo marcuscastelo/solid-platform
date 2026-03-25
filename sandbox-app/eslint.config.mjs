@@ -1,3 +1,3 @@
-import config from '@acme/eslint-config/solid'
+import config from '@marucs/eslint-config/solid'
 
 export default config
