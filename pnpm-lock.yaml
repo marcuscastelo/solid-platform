@@ -35,7 +35,11 @@ importers:
         specifier: ^0.14.5
         version: 0.14.5(eslint@10.1.0)(typescript@6.0.2)
 
-  packages/eslint-plugin: {}
+  packages/eslint-plugin:
+    devDependencies:
+      '@typescript-eslint/parser':
+        specifier: ^8.42.0
+        version: 8.57.2(eslint@10.1.0)(typescript@6.0.2)
 
   packages/tsconfig: {}
 

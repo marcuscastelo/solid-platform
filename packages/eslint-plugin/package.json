@@ -10,6 +10,9 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.42.0"
+  },
   "main": "./src/index.js",
   "exports": {
     ".": "./src/index.js"

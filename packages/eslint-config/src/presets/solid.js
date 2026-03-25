@@ -4,6 +4,7 @@ import uiFunctionSize from "../internal/ui/function-size.js";
 import uiComponentComplexity from "../internal/ui/component-complexity.js";
 import uiPageComplexity from "../internal/ui/page-complexity.js";
 import uiJsxRuntime from "../internal/ui/jsx-runtime.js";
+import uiJsxRules from "../internal/ui/jsx-rules.js";
 import navigationSafety from "../internal/navigation/safety.js";
 import vmShape from "../internal/vm/shape.js";
 
@@ -16,16 +17,5 @@ export default [
   uiPageComplexity,
   navigationSafety,
   vmShape,
-
-  // JSX rules (generic)
-  // TODO: enable when moved to shared plugin
-  // {
-  //   files: ["**/*.tsx"],
-  //   rules: {
-  //     "platform/no-jsx-short-circuit": "error",
-  //     "platform/no-jsx-ternary": "error",
-  //     "platform/no-iife-in-jsx": "warn",
-  //   },
-  // },
-
+  uiJsxRules,
 ];
