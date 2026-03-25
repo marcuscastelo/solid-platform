@@ -39,6 +39,32 @@ export default [
 			],
 		},
 	},
+
+	{
+		files: ["**/*.tsx"],
+		rules: {
+			"max-lines-per-function": ["error", 220],
+		},
+	},
+
+	{
+		files: ["**/*.component.tsx"],
+		rules: {
+			complexity: ["error", 15],
+			"max-depth": ["error", 4],
+			"max-nested-callbacks": ["error", 3],
+		},
+	},
+
+	{
+		files: ["**/*.page.tsx"],
+		rules: {
+			complexity: ["error", 20],
+			"max-depth": ["error", 5],
+			"max-nested-callbacks": ["error", 4],
+		},
+	},
+
 	// JSX rules (genéricas)
 	// TODO: aplicar quando tiver os rules movidos
 	// {
