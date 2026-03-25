@@ -16,6 +16,7 @@
   "scripts": {
     "check:pack": "pnpm -r pack --pack-destination .tmp-packs",
     "publish:packages": "pnpm -r --filter './packages/*' publish --no-git-checks",
-    "release": "pnpm check:pack && pnpm publish:packages"
+    "tag:packages": "node scripts/tag-packages.mjs",
+    "release": "pnpm check:pack && pnpm publish:packages && pnpm tag:packages"
   }
 }
