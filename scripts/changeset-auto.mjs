@@ -11,6 +11,8 @@ const ROOT = process.cwd()
 const PACKAGES_DIR = path.join(ROOT, 'packages')
 const CHANGESET_DIR = path.join(ROOT, '.changeset')
 const DEFAULT_BASE_REF = 'origin/main'
+const GIT_DIR = path.join(ROOT, '.git')
+const ALLOW_FILE = path.join(GIT_DIR, '.changeset-auto-allowed-head')
 
 function run(command) {
   return execSync(command, {
@@ -71,6 +73,27 @@ function ensureDir(dir) {
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+function getCurrentHead() {
+  return safeRun('git rev-parse HEAD')
+}
+
+function writeAllowMarkerForCurrentHead() {
+  ensureDir(GIT_DIR)
+
+  const head = getCurrentHead()
+  if (!head) {
+    throw new Error('Could not resolve current HEAD.')
+  }
+
+  fs.writeFileSync(ALLOW_FILE, `${head}\n`, 'utf8')
+}
+
+function removeAllowMarker() {
+  if (fs.existsSync(ALLOW_FILE)) {
+    fs.unlinkSync(ALLOW_FILE)
+  }
 }
 
 function getPackageDirs() {
@@ -308,6 +331,7 @@ async function askBumps(affectedPackages, directlyChangedSet, yesMode) {
 
 async function maybeIncludeGlobalChanges(packages, selectedBumps, globalChanges, yesMode) {
   if (globalChanges.length === 0) return selectedBumps
+
   if (yesMode) return selectedBumps
 
   const rl = createInterface({ input, output })
@@ -321,7 +345,9 @@ async function maybeIncludeGlobalChanges(packages, selectedBumps, globalChanges,
       'n',
     )
 
-    if (answer === 'n') return selectedBumps
+    if (answer === 'n') {
+      return selectedBumps
+    }
 
     const publicPackages = packages.filter((pkg) => !pkg.private)
 
@@ -390,7 +416,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2))
 
   if (!args.noFetch) {
-    safeRun(`git fetch origin main --quiet`)
+    safeRun('git fetch origin main --quiet')
   }
 
   const diffRange = resolveDiffRange(args.since)
@@ -412,7 +438,9 @@ async function main() {
   const affectedPackageNames = expandAffectedPackages(directlyChangedPackageNames, reverseGraph)
 
   if (affectedPackageNames.size === 0 && globalChanges.length === 0) {
+    writeAllowMarkerForCurrentHead()
     console.log('No affected packages found.')
+    console.log('Current HEAD marked as explicitly allowed for push.')
     process.exit(0)
   }
 
@@ -443,7 +471,9 @@ async function main() {
   )
 
   if (selectedBumps.size === 0) {
+    writeAllowMarkerForCurrentHead()
     console.log('No packages selected for changeset.')
+    console.log('Current HEAD marked as explicitly allowed for push.')
     process.exit(0)
   }
 
@@ -452,6 +482,8 @@ async function main() {
     `Release updates for ${[...selectedBumps.keys()].map(unscopedName).join(', ')}.`
 
   const frontmatter = createChangesetFrontmatter(selectedBumps)
+
+  removeAllowMarker()
   const filePath = writeChangesetFile(frontmatter, defaultMessage)
 
   console.log('\nCreated changeset:')
