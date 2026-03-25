@@ -1,0 +1,53 @@
+#!/usr/bin/env sh
+
+set -eu
+
+BASE_REF="origin/main"
+ALLOW_FILE=".git/.changeset-auto-allowed-head"
+
+git fetch origin main --quiet || true
+
+DIFF_RANGE="${BASE_REF}...HEAD"
+
+# 1) tem changeset no diff → OK
+CHANGESET_FILES="$(git diff --name-only "$DIFF_RANGE" -- '.changeset/*.md' || true)"
+CHANGESET_FILES_FILTERED="$(printf '%s\n' "$CHANGESET_FILES" | grep -vE '^\.changeset/(README\.md|config\.json)$' || true)"
+
+if [ -n "$CHANGESET_FILES_FILTERED" ]; then
+  exit 0
+fi
+
+# 2) tem allow marker para esse HEAD → OK
+CURRENT_HEAD="$(git rev-parse HEAD)"
+
+if [ -f "$ALLOW_FILE" ]; then
+  ALLOWED_HEAD="$(cat "$ALLOW_FILE" || true)"
+  if [ "$ALLOWED_HEAD" = "$CURRENT_HEAD" ]; then
+    exit 0
+  fi
+fi
+
+# 3) mudanças relevantes?
+RELEVANT_CHANGES="$(git diff --name-only "$DIFF_RANGE" -- \
+  'packages/**' \
+  'scripts/**' \
+  '.github/workflows/**' \
+  'package.json' \
+  'pnpm-workspace.yaml' \
+  '.npmrc' \
+  || true)"
+
+if [ -z "$RELEVANT_CHANGES" ]; then
+  exit 0
+fi
+
+echo ""
+echo "Push blocked: release-relevant changes detected, but no changeset was found."
+echo ""
+echo "Run:"
+echo "  pnpm changeset:auto"
+echo "or"
+echo "  pnpm changeset"
+echo ""
+
+exit 1

@@ -10,6 +10,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "eslint": "^10.1.0",
+    "husky": "^9.1.7",
     "typescript": "^6.0.2"
   },
   "packageManager": "pnpm@10.20.0",
@@ -20,6 +21,7 @@
     "tag:packages": "node scripts/tag-published-packages.mjs",
     "release": "pnpm check:pack && pnpm publish:packages && pnpm tag:packages",
     "changeset:auto": "node scripts/changeset-auto.mjs",
-    "changeset:auto:yes": "node scripts/changeset-auto.mjs --yes --message \"Automated release update.\""
+    "changeset:auto:yes": "node scripts/changeset-auto.mjs --yes --message \"Automated release update.\"",
+    "prepare": "husky"
   }
 }
