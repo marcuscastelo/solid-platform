@@ -18,6 +18,9 @@
     "version:packages": "changeset version",
     "publish:packages": "pnpm -r --filter './packages/*' publish --no-git-checks",
     "tag:packages": "node scripts/tag-published-packages.mjs",
-    "release": "pnpm check:pack && pnpm publish:packages && pnpm tag:packages"
+    "release": "pnpm check:pack && pnpm publish:packages && pnpm tag:packages",
+    "changeset:auto": "node scripts/changeset-auto.mjs",
+    "changeset:auto:main": "node scripts/changeset-auto.mjs --since origin/main",
+    "changeset:auto:yes": "node scripts/changeset-auto.mjs --yes --message \"Automated release update.\""
   }
 }
