@@ -1,5 +1,11 @@
 # @marcuscastelo/tsconfig
 
+## 0.2.0
+
+### Minor Changes
+
+- 858ccd7: Release updates for eslint-config, eslint-plugin, tsconfig.
+
 ## 0.1.2
 
 ### Patch Changes

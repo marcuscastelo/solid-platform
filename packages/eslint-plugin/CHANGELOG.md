@@ -1,5 +1,11 @@
 # @marcuscastelo/eslint-plugin
 
+## 0.3.0
+
+### Minor Changes
+
+- 858ccd7: Release updates for eslint-config, eslint-plugin, tsconfig.
+
 ## 0.2.1
 
 ### Patch Changes
