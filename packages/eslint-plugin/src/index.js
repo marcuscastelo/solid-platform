@@ -8,11 +8,13 @@ export const rules = {
   "no-jsx-ternary": noJsxTernary,
 };
 
-export const containerTrackerEslintPlugin = {
+export const eslintPlugin = {
   meta: {
-    name: "container-tracker",
+    name: "@marcuscastelo/eslint-plugin",
   },
   rules,
 };
 
-export default containerTrackerEslintPlugin;
+export const containerTrackerEslintPlugin = eslintPlugin;
+
+export default eslintPlugin;

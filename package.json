@@ -16,6 +16,7 @@
   "packageManager": "pnpm@10.20.0",
   "scripts": {
     "check:pack": "pnpm -r pack --pack-destination .tmp-packs",
+    "test": "pnpm -r --if-present test",
     "version:packages": "changeset version",
     "publish:packages": "pnpm -r --filter './packages/*' publish --no-git-checks",
     "tag:packages": "node scripts/tag-published-packages.mjs",

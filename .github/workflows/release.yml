@@ -36,6 +36,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Test
+        run: pnpm test
+
       - name: Create release PR or publish
         id: changesets
         uses: changesets/action@v1

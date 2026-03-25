@@ -8,14 +8,14 @@ export const parserOptions = {
   },
 };
 
-export function createRuleTesterConfig(plugin) {
+export function createRuleTesterConfig(plugin, alias = "platform") {
   return {
     languageOptions: {
       parser: tsParser,
       parserOptions,
     },
     plugins: {
-      "container-tracker": plugin,
+      [alias]: plugin,
     },
   };
 }

@@ -9,7 +9,7 @@ RuleTester.it = it;
 const ruleTester = new RuleTester(createRuleTesterConfig(plugin));
 
 ruleTester.run(
-  "container-tracker/no-jsx-short-circuit",
+  "platform/no-jsx-short-circuit",
   plugin.rules["no-jsx-short-circuit"],
   {
     valid: [

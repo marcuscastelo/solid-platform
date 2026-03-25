@@ -8,7 +8,7 @@ RuleTester.it = it;
 
 const ruleTester = new RuleTester(createRuleTesterConfig(plugin));
 
-ruleTester.run("container-tracker/no-iife-in-jsx", plugin.rules["no-iife-in-jsx"], {
+ruleTester.run("platform/no-iife-in-jsx", plugin.rules["no-iife-in-jsx"], {
   valid: [
     {
       code: `

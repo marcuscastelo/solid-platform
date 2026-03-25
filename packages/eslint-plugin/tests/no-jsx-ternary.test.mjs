@@ -8,7 +8,7 @@ RuleTester.it = it;
 
 const ruleTester = new RuleTester(createRuleTesterConfig(plugin));
 
-ruleTester.run("container-tracker/no-jsx-ternary", plugin.rules["no-jsx-ternary"], {
+ruleTester.run("platform/no-jsx-ternary", plugin.rules["no-jsx-ternary"], {
   valid: [
     {
       code: `
