@@ -1,5 +1,13 @@
 # @marcuscastelo/eslint-config
 
+## 0.4.2
+
+### Patch Changes
+
+- Publish package publicly on npm.
+- Updated dependencies
+  - @marcuscastelo/eslint-plugin@0.3.2
+
 ## 0.4.0
 
 ### Minor Changes

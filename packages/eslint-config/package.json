@@ -1,6 +1,6 @@
 {
   "name": "@marcuscastelo/eslint-config",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "private": false,
   "type": "module",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "git+https://github.com/marcuscastelo/solid-platform.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {
     "test": "node --test tests/**/*.test.mjs"

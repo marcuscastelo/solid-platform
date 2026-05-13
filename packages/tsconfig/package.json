@@ -7,7 +7,8 @@
     "url": "git+https://github.com/marcuscastelo/solid-platform.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "exports": {
     "./base": "./src/presets/base.json",

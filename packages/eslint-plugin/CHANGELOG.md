@@ -1,5 +1,11 @@
 # @marcuscastelo/eslint-plugin
 
+## 0.3.2
+
+### Patch Changes
+
+- Publish package publicly on npm.
+
 ## 0.3.0
 
 ### Minor Changes
