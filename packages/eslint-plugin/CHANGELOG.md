@@ -6,6 +6,13 @@
 
 - Publish package publicly on npm.
 
+## 0.3.1
+
+### Patch Changes
+
+- 58e72e1: Release updates for eslint-config, eslint-plugin.
+- f2c814f: Release updates for eslint-config, eslint-plugin.
+
 ## 0.3.0
 
 ### Minor Changes

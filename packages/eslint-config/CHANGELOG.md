@@ -8,6 +8,16 @@
 - Updated dependencies
   - @marcuscastelo/eslint-plugin@0.3.2
 
+## 0.4.1
+
+### Patch Changes
+
+- 58e72e1: Release updates for eslint-config, eslint-plugin.
+- f2c814f: Release updates for eslint-config, eslint-plugin.
+- Updated dependencies [58e72e1]
+- Updated dependencies [f2c814f]
+  - @marcuscastelo/eslint-plugin@0.3.1
+
 ## 0.4.0
 
 ### Minor Changes
