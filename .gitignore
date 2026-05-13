@@ -1,3 +1,4 @@
 node_modules/
 .tmp-packs/
 from-container-tracker/
+.serena/
